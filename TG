@@ -1,0 +1,44 @@
+import requests
+import json
+import random
+import string
+from datetime import datetime
+
+def generate_token():
+    # Function to generate a random token
+    token_length = 59  # Discord token length is 59 characters
+    characters = string.ascii_letters + string.digits + '_-'
+    return ''.join(random.choice(characters) for i in range(token_length))
+
+def save_tokens_to_file(tokens):
+    # Function to save tokens to a text file labeled with the date
+    file_name = f"discord_tokens_{datetime.now().strftime('%Y-%m-%d')}.txt"
+    with open(file_name, 'w') as file:
+        file.write('\n'.join(tokens))
+    print(f"Tokens saved to {file_name}")
+
+def main():
+    # Main function to obtain permission, generate tokens, and save them to a file
+    # Ensure you have explicit permission from Discord for educational purposes
+
+    # Your Discord API endpoint for token creation (replace 'YOUR_ENDPOINT' with the actual endpoint)
+    endpoint = 'YOUR_ENDPOINT'
+
+    # Number of tokens to generate
+    num_tokens = 5
+
+    # Authorization header (replace 'YOUR_TOKEN' with a valid authorization token)
+    headers = {'Authorization': 'YOUR_TOKEN'}
+
+    # Generate tokens
+    tokens = [generate_token() for _ in range(num_tokens)]
+
+    # Save tokens to a file
+    save_tokens_to_file(tokens)
+
+    # Print generated tokens
+    for token in tokens:
+        print(f"Generated Token: {token}")
+
+if __name__ == "__main__":
+    main()
